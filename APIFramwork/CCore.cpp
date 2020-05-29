@@ -1,19 +1,23 @@
 #include "CCore.h"
+#include "Scene/CSceneManager.h"
 
-CCore* CCore::m_Inst = nullptr;
+// CCore 인스턴스 객체 싱글톤화
+DEFINITION_SINGLE(CCore)
 bool CCore::m_loopWindow = true;
 
-CCore::CCore() 
+CCore::CCore()
 {
+
 }
 
 CCore::~CCore()
 {
+    DESTROY_SINGLE(CSceneManager);
 }
 
 bool CCore::Init(HINSTANCE hInst)
 {
-	m_hInst = hInst;
+	this->m_hInst = hInst;
 
 	// 윈도우 클래스를 제작하고 이를 레지스터에 등록한다.
 	myRegisterClass();
@@ -23,6 +27,13 @@ bool CCore::Init(HINSTANCE hInst)
     this->m_windowResolution.height = 720;
 
     create();
+
+    // 장면 관리자 초기화
+    // null이 반환된 경우는 초기화가 실패되었다는 뜻이다.
+    if (!GET_SINGLE(CSceneManager)->Init())
+    {
+        return false;
+    }
 
 	return true;
 }
@@ -69,6 +80,11 @@ ATOM CCore::myRegisterClass()
     wcex.lpszMenuName = NULL; // MAKEINTRESOURCE(IDC_MYAPP);
     wcex.lpszClassName = L"200503 WINAPI PRACTICE";
     wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1));
+    
+    /*
+        포토샵을 생각해보면 레이어들이 모여서 하나의 이미지가 된다.
+        도화지 여러장에 미리 그리고 이걸 하나로 합치는 것과 같다.
+    */
 
     return RegisterClassExW(&wcex);
 }

@@ -16,6 +16,9 @@
     <Filter Include="01.Core">
       <UniqueIdentifier>{c44bcde6-b082-4db7-87c5-f20f65e9ac4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Scene">
+      <UniqueIdentifier>{a980e82d-2574-45e1-bd15-1a9bc85a1dac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.md" />
@@ -25,7 +28,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CCore.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>01.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CSceneManager.cpp">
+      <Filter>02.Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,14 +41,17 @@
     <ClInclude Include="Macro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CCore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Types.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CCore.h">
+      <Filter>01.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\CSceneManager.h">
+      <Filter>02.Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 #include "CCore.h"
 #include "Scene/CSceneManager.h"
+#include "./Core/CTimer.h"
 
 // CCore 인스턴스 객체 싱글톤화
 DEFINITION_SINGLE(CCore)
@@ -13,6 +14,7 @@ CCore::CCore()
 CCore::~CCore()
 {
     DESTROY_SINGLE(CSceneManager);
+    DESTROY_SINGLE(CTimer);
 }
 
 bool CCore::Init(HINSTANCE hInst)
@@ -27,6 +29,12 @@ bool CCore::Init(HINSTANCE hInst)
     this->m_windowResolution.height = 720;
 
     create();
+
+    // 타이머 초기화
+    if (GET_SINGLE(CTimer)->Init()) 
+    {
+        return false;
+    }
 
     // 장면 관리자 초기화
     // null이 반환된 경우는 초기화가 실패되었다는 뜻이다.
@@ -56,12 +64,21 @@ int CCore::Run()
         // 윈도우 데드타임인 경우 (실제 게임 코드는 여기에 작성합니다.)
         else
         {
-
+            Logic();
         }
     }
 
     // 종료시 종료 메시지 반환
     return (int)message.wParam;
+}
+
+void CCore::Logic()
+{
+    // 타이머 갱신
+    GET_SINGLE(CTimer)->Update();
+
+    // 이로써 프레임워크 상 모든 내용에서 시간 전달이 가능하다.
+    float fDeltaTime = GET_SINGLE(CTimer)->GetDeltaTime();
 }
 
 ATOM CCore::myRegisterClass()
@@ -94,7 +111,8 @@ BOOL CCore::create()
     // 인스턴스 핸들은 이미 저장되어있다.
     // 고로 윈도우 창을 생성하자
     this->m_hWnd = CreateWindowW(L"200503 WINAPI PRACTICE", L"200503 WINAPI PRACTICE",
-        WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, this->m_hInst, nullptr);
+        WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0
+        , nullptr, nullptr, this->m_hInst, nullptr);
 
     if (!this->m_hWnd)
     {

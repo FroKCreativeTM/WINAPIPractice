@@ -9,4 +9,5 @@ using namespace std;
 
 #include "Macro.h"
 #include "resource.h"
+#include "Flag.h"
 #include "Types.h"

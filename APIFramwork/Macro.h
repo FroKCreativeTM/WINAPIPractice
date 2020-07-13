@@ -27,6 +27,6 @@
 		Type();\
 		~Type();\
 
-#define DEFINITION_SINGLE(Type) Type * Type::m_Inst = nullptr;
+#define DEFINITION_SINGLE(Type) Type* Type::m_Inst = nullptr;
 #define GET_SINGLE(Type) Type::GetInst()
 #define DESTROY_SINGLE(Type) Type::DestroyInst()

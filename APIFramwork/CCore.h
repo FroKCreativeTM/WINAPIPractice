@@ -20,6 +20,10 @@ public :
 	int Run();
 
 private : 
+	// 로직 메서드
+	void Logic();
+
+private : 
 	// 짜피 레지스터할 INSTANCE는 객체 내에서 만들꺼고
 	// 이 놈은 헬퍼 메소드에 불과하기 때문에 외부에 드러낼 필요가 없다.
 	ATOM myRegisterClass();

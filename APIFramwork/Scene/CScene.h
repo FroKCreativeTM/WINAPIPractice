@@ -13,6 +13,10 @@ class CScene
 protected:
 	friend class CSceneManager;
 
+protected:
+	// 모든 씬은 레이어를 가진다.
+	list<class CLayer*> m_LayerList;
+
 // 외부의 침입을 막는다.
 protected : 
 	CScene();
@@ -21,5 +25,11 @@ protected :
 public : 
 	// 초기화 함수
 	virtual bool Init();
+
+	// 자식은 모두 이 기능을 상속 받는다.
+	class CLayer* CreateLayer(const string& strTag,
+		int nZOrder = 0);
+
+	static bool LayerSort(class CLayer* pLayer1, class CLayer* pLayer2);
 };
 

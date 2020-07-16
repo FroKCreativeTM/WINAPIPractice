@@ -1,49 +1,77 @@
 #pragma once
 
-#include "../Game.h"
+#include "../CRef.h"
 
 // 게임에 그려지는 모든 것들은 이것을 상속받는다.
-class CObj
+class CObj : public CRef
 {
 protected : 
 	CObj();
+	CObj(const CObj& obj);
 	virtual ~CObj();
 
 protected : 
-	int m_nRef;		// 참조 횟수를 저장합니다.
+	class CScene* m_pScene;
+	class CLayer* m_pLayer;
 
+public : 
+	void SetScene(class CScene* pScene)
+	{
+		m_pScene = pScene;
+	}
+	void SetLayer(class CLayer* pLayer)
+	{
+		m_pLayer = pLayer;
+	}
+
+	class CScene* GetScene() const
+	{
+		return m_pScene;
+	}
+	class CLayer* GetLayer() const
+	{
+		return m_pLayer;
+	}
+
+protected : 
 	string m_strTag;
 	// 모든 물체는 위치와 크기를 가진다.
 	POSITION m_tPos;
 	_SIZE m_tSize;
+	POSITION m_tPivot;
 
 public : 
-	void AddRef()
-	{
-		++m_nRef;
-	}
-
-	int Release()
-	{
-		--m_nRef;
-
-		if (m_nRef == 0)
-		{
-			// 참조 레이어가 없다면 자기 자신을 지운다.
-			delete this;
-			return 0;
-		}
-
-		return m_nRef;
-	}
-
-public : 
-	virtual bool Init();
+	virtual bool Init() = 0;
 	virtual void Input(float fDeltaTime);
 	virtual int Update(float fDeltaTime);
 	virtual int LateUpdate(float fDeltaTime);
 	virtual void Collision(float fDeltaTime);
 	virtual void Render(HDC hDC, float fDeltaTime);
+
+public : 
+	// 클래스 종류가 다양해질 것이다. 이에 대응하기 위해서 템플릿 사용
+	// null인 경우 레이어에 지금 생성한 오브젝트를 추가하지 않고
+	// null이 아닌 경우 추가
+	template <typename T>
+	static T* CreateObj(const string& strTag, class CLayer* pLayer = nullptr)
+	{
+		T* pObj = new T;
+
+		if (!pObj->Init())
+		{
+			SAFE_RELEASE(pObj);
+			return nullptr;
+		}
+
+		// 레이어가 있다면
+		if (pLayer)
+		{
+			pLayer->AddObject(pObj);
+		}
+
+		pObj->AddRef();
+		return pObj;
+	}
 
 public : 
 	/* setter */

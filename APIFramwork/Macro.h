@@ -3,7 +3,7 @@
 // 인라인 구현이 가능해보이긴 한데...
 #define SAFE_DELETE(x) if(x) { delete x; x = nullptr; } 
 #define SAFE_DELETE_ARRAY(x)  if(x) { delete[] x; x = nullptr; }
-#define SAFE_RELEASE(x) { p->Release(); p = nullptr; }
+#define SAFE_RELEASE(x) { x->Release(); x = nullptr; }
 
 // 변수나 타입이 둘 다 들어올 수 있다.
 // 매크로는 한 줄로만 만들 수 있는데 이는 너무 불편하다.

@@ -13,6 +13,16 @@ CLayer::~CLayer()
 	Safe_Release_VecList(m_ObjList);
 }
 
+void CLayer::AddObject(CObj* pObj)
+{
+	// 이 물체의 씬과 레이어를 지정해주고, 참조값을 늘린다.
+	pObj->SetScene(m_pScene);
+	pObj->SetLayer(this);
+	pObj->AddRef();
+
+	m_ObjList.push_back(pObj);
+}
+
 void CLayer::Input(float fDeltaTime)
 {
 	list<CObj*>::iterator iter;

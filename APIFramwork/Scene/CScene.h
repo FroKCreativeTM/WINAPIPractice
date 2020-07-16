@@ -34,6 +34,7 @@ public :
 	// 자식은 모두 이 기능을 상속 받는다.
 	class CLayer* CreateLayer(const string& strTag,
 		int nZOrder = 0);
+	class CLayer* FindLayer(const string& strTag);
 
 	static bool LayerSort(class CLayer* pLayer1, class CLayer* pLayer2);
 };

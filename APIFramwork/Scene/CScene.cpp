@@ -99,6 +99,22 @@ CLayer* CScene::CreateLayer(const string& strTag, int nZOrder)
 	return nullptr;
 }
 
+CLayer* CScene::FindLayer(const string& strTag)
+{
+	// 반복을 돌려야 모든 레이어를 처리할 수 있다.
+	list<CLayer*>::iterator iter;
+	list<CLayer*>::iterator iterEnd = m_LayerList.end();
+
+	for (iter = m_LayerList.begin(); iter != iterEnd; ++iter)
+	{
+		if ((*iter)->GetTag() == strTag)
+		{
+			return *iter;
+		}
+	}
+	return nullptr;
+}
+
 bool CScene::LayerSort(CLayer* pLayer1, CLayer* pLayer2)
 {
 	// =는 주의해야한다.

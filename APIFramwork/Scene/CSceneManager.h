@@ -12,6 +12,11 @@ private :
 public : 
 	// 이 객체를 초기화하는 멤버 메소드
 	bool Init();
+	void Input(float fDeltaTime);
+	int Update(float fDeltaTime);
+	int LateUpdate(float fDeltaTime);
+	void Collision(float fDeltaTime);
+	virtual void Render(HDC hDC, float fDeltaTime);		// 그리기 위해서는 디바이스 컨텍스트를 다룰 필요가 있다.
 
 public : 
 	template <typename T>

@@ -13,6 +13,7 @@ private :
 private : 
 	HINSTANCE		m_hInst;
 	HWND			m_hWnd;
+	HDC				m_hDC;
 	RESOLUTION		m_windowResolution;
 	
 public : 
@@ -22,6 +23,15 @@ public :
 private : 
 	// 로직 메서드
 	void Logic();
+	// 입력 메서드(시간 기반이다.)
+	void Input(float fDeltaTime);
+	// 업데이트 메서드
+	int Update(float fDeltaTime);
+	// 늦은 업데이트(충돌 전에 후처리 등을 대응)
+	int LateUpdate(float fDeltaTime);
+	void Collision(float fDeltaTime);
+	void Render(float fDeltaTime);
+
 
 private : 
 	// 짜피 레지스터할 INSTANCE는 객체 내에서 만들꺼고

@@ -25,6 +25,11 @@ protected :
 public : 
 	// 초기화 함수
 	virtual bool Init();
+	virtual void Input(float fDeltaTime);
+	virtual int Update(float fDeltaTime);
+	virtual int LateUpdate(float fDeltaTime);
+	virtual void Collision(float fDeltaTime);
+	virtual void Render(HDC hDC, float fDeltaTime);		// 그리기 위해서는 디바이스 컨텍스트를 다룰 필요가 있다.
 
 	// 자식은 모두 이 기능을 상속 받는다.
 	class CLayer* CreateLayer(const string& strTag,

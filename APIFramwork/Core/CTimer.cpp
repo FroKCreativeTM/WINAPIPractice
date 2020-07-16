@@ -33,3 +33,7 @@ void CTimer::Update()
 
 	m_fDeltaTime = (tTime.QuadPart - m_tTime.QuadPart) / (float)m_tSecond.QuadPart;
 }
+
+void Update()
+{
+}

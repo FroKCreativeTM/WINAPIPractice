@@ -18,6 +18,68 @@ bool CScene::Init()
 	return true;
 }
 
+void CScene::Input(float fDeltaTime)
+{
+	// 반복을 돌려야 모든 레이어를 처리할 수 있다.
+	list<CLayer*>::iterator iter;
+	list<CLayer*>::iterator iterEnd = m_LayerList.end();
+	
+	for (iter = m_LayerList.begin(); iter != iterEnd; ++iter)
+	{
+		(*iter)->Input(fDeltaTime);
+	}
+}
+
+int CScene::Update(float fDeltaTime)
+{
+	// 반복을 돌려야 모든 레이어를 처리할 수 있다.
+	list<CLayer*>::iterator iter;
+	list<CLayer*>::iterator iterEnd = m_LayerList.end();
+
+	for (iter = m_LayerList.begin(); iter != iterEnd; ++iter)
+	{
+		(*iter)->Update(fDeltaTime);
+	}
+	return 0;
+}
+
+int CScene::LateUpdate(float fDeltaTime)
+{
+	// 반복을 돌려야 모든 레이어를 처리할 수 있다.
+	list<CLayer*>::iterator iter;
+	list<CLayer*>::iterator iterEnd = m_LayerList.end();
+
+	for (iter = m_LayerList.begin(); iter != iterEnd; ++iter)
+	{
+		(*iter)->LateUpdate(fDeltaTime);
+	}
+	return 0;
+}
+
+void CScene::Collision(float fDeltaTime)
+{
+	// 반복을 돌려야 모든 레이어를 처리할 수 있다.
+	list<CLayer*>::iterator iter;
+	list<CLayer*>::iterator iterEnd = m_LayerList.end();
+
+	for (iter = m_LayerList.begin(); iter != iterEnd; ++iter)
+	{
+		(*iter)->Collision(fDeltaTime);
+	}
+}
+
+void CScene::Render(HDC hDC, float fDeltaTime)
+{
+	// 반복을 돌려야 모든 레이어를 처리할 수 있다.
+	list<CLayer*>::iterator iter;
+	list<CLayer*>::iterator iterEnd = m_LayerList.end();
+
+	for (iter = m_LayerList.begin(); iter != iterEnd; ++iter)
+	{
+		(*iter)->Render(hDC, fDeltaTime);
+	}
+}
+
 // 레이어를 만들어주는 메소드입니다.
 CLayer* CScene::CreateLayer(const string& strTag, int nZOrder)
 {

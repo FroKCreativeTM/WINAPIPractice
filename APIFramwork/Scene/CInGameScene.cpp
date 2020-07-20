@@ -17,7 +17,6 @@ bool CInGameScene::Init()
         return false;
 
     // 레이어를 찾는다.
-    C
 
     return true;
 }
